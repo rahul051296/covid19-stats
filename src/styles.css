@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Cabin&display=swap');
+@font-face {
+    font-family: 'Product Sans Regular';
+    src: url(./assets/fonts/Product-Sans-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Portfolio Regular';
+    src: url(./assets/fonts/GILROY-REGULAR.OTF);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Portfolio Regular' !important;
+    background: #f1f1f1 !important;
+}
