@@ -8,7 +8,7 @@
 </nav> -->
 
 <nav class="navbar custom-navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand brand"><i class="fas fa-biohazard"></i> COVID19 STATS</a>
+    <a class="navbar-brand brand"><i class="fas fa-biohazard"></i> COVID-19 STATS</a>
 </nav>
 <section class="container-fluid">
     <div class="flex-container">
@@ -24,16 +24,26 @@
         </form>
     </div>
     <div class="row card-container">
-        <div class="col-md-4">
+        <div class="col-6 col-md-3 p-fix">
             <div>
                 <div class="neo-card">
-                    <h6 class="bold">CONFIRMED CASES</h6>
+                    <h6 class="bold">OVERALL CASES</h6>
                     <p class="loading-text" *ngIf="!flags.isDataLoaded">Loading...</p>
-                    <h2 class="text-warning count" *ngIf="flags.isDataLoaded">{{counts.confirmed}}</h2>
+                    <h2 class="text-primary count" *ngIf="flags.isDataLoaded">{{counts.confirmed}}</h2>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-6 col-md-3  p-fix">
+            <div>
+                <div class="neo-card">
+                    <h6 class="bold">INFECTED</h6>
+                    <p class="loading-text" *ngIf="!flags.isDataLoaded">Loading...</p>
+
+                    <h2 class="text-warning count" *ngIf="flags.isDataLoaded">{{counts.infected}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3  p-fix">
             <div>
                 <div class="neo-card">
                     <h6 class="bold">DEATHS</h6>
@@ -43,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-6 col-md-3  p-fix">
             <div>
                 <div class="neo-card">
                     <h6 class="bold">RECOVERED</h6>
@@ -53,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6  p-fix">
             <div>
                 <div class="neo-card">
                     <h6 class="bold">OVERVIEW</h6>
@@ -67,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6  p-fix">
             <div>
                 <div class="neo-card">
                     <h6 class="bold">LOCATIONS WITH HIGHEST CASES</h6>

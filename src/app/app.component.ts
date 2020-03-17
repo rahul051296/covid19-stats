@@ -22,7 +22,7 @@ export class AppComponent {
       position: 'bottom',
     },
     plugins: {
-      datalabels:{
+      datalabels: {
         color: "#000",
         anchor: "end"
       }
@@ -33,28 +33,18 @@ export class AppComponent {
   public barChartLabels: any = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-
+  
   public barChartData: ChartDataSets[] = [];
-
-  getBarChartData() {
-    let topCountries = Array.from(this.countryList).splice(0, 5);
-    this.barChartLabels = topCountries;
-    this.barChartLabels.map(country => {
-      let countryData = this.getCasesByLocation(country);
-      this.infectedData.push(countryData.confirmed);
-      this.recoveredData.push(countryData.recovered);
-    });
-    this.barChartData = [
-      { data: this.infectedData, label: 'Infected' },
-      { data: this.recoveredData, label: 'Recovered' }
-    ];
-  }
+  topCountries: any = [];
 
   // Pie
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
       position: 'bottom',
+    },
+    animation: {
+      duration: 500
     },
     plugins: {
       datalabels: {
@@ -75,7 +65,7 @@ export class AppComponent {
       },
     }
   };
-  public pieChartLabels: Label[] = [['Infected'], ['Deaths'], 'Recovered'];
+  public pieChartLabels: Label[] = [['Infected'], ['Deaths'], ['Recovered']];
   public pieChartData: number[] = [300, 500, 100];
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [pluginDataLabels];
@@ -86,12 +76,10 @@ export class AppComponent {
     },
   ];
 
-
-
-
   masterList: Array<any>;
   counts: any = {
     confirmed: 0,
+    infected: 0,
     deaths: 0,
     recovered: 0
   };
@@ -122,12 +110,15 @@ export class AppComponent {
       this.counts.deaths += covidData.deaths;
       this.counts.recovered += covidData.recovered;
     });
+    this.counts.infected += this.counts.confirmed - (this.counts.recovered + this.counts.deaths);
+
     this.updatePieChart();
   }
 
   updatePieChart() {
     this.pieChartData = [];
-    this.pieChartData.push(this.counts.confirmed);
+    this.counts.infected = this.counts.confirmed - (this.counts.recovered + this.counts.deaths);
+    this.pieChartData.push(this.counts.infected);
     this.pieChartData.push(this.counts.deaths);
     this.pieChartData.push(this.counts.recovered);
   }
@@ -142,6 +133,8 @@ export class AppComponent {
           this.counts.recovered += covidData.recovered;
         }
       });
+      this.counts.infected += this.counts.confirmed - (this.counts.recovered + this.counts.deaths);
+
       this.updatePieChart();
       this.flags.isDataLoaded = true;
     }
@@ -150,6 +143,7 @@ export class AppComponent {
   getCasesByLocation(location) {
     let countryCount: any = {
       confirmed: 0,
+      infected: 0,
       deaths: 0,
       recovered: 0
     }
@@ -161,12 +155,15 @@ export class AppComponent {
           countryCount.recovered += covidData.recovered;
         }
       });
+      countryCount.infected += countryCount.confirmed - (countryCount.recovered + countryCount.deaths);
+
     }
     return countryCount;
   }
 
   resetCount() {
     this.counts.confirmed = 0;
+    this.counts.infected = 0;
     this.counts.deaths = 0;
     this.counts.recovered = 0;
 
@@ -176,8 +173,22 @@ export class AppComponent {
     this.masterList.map(covidData => {
       country.add(covidData.country);
     });
-    this.countryList = country;
-    console.log(country);
+    this.topCountries = [...Array.from(country)].splice(0, 5);
+    this.countryList = Array.from(country).sort();
+  }
+
+  getBarChartData() {
+    this.barChartLabels = this.topCountries;
+    this.barChartLabels.map(country => {
+      let countryData = this.getCasesByLocation(country);
+      countryData.infected = countryData.confirmed - (countryData.recovered + countryData.deaths);
+      this.infectedData.push(countryData.infected);
+      this.recoveredData.push(countryData.recovered);
+    });
+    this.barChartData = [
+      { data: this.infectedData, label: 'Infected' },
+      { data: this.recoveredData, label: 'Recovered' }
+    ];
   }
 
   getAllCases() {
@@ -187,6 +198,7 @@ export class AppComponent {
       this.counts.deaths += covidData.deaths;
       this.counts.recovered += covidData.recovered;
     });
+    this.counts.infected = this.counts.confirmed - (this.counts.deaths + this.counts.recovered);
     this.updatePieChart();
 
   }
