@@ -7,9 +7,9 @@
             <form class="form-inline">
                 <label style="padding-right: 10px;" for="exampleFormControlSelect1">Location</label>
                 <select class="form-control" name="country" id="exampleFormControlSelect1" [(ngModel)]="selectedCountry" (change)="onChangeCountry()">  
-            <option>All</option>        
-            <option *ngFor="let country of data?.countryList">{{country}}</option>
-        </select>
+                    <option>All</option>        
+                    <option *ngFor="let country of data?.countryList">{{country}}</option>
+                </select>
             </form>
         </div>
 

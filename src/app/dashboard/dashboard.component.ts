@@ -171,6 +171,7 @@ export class DashboardComponent implements OnInit {
     if (this.data.stats && this.data.stats.length) {
       this.data.stats.map((item, index) => {
         if (item.country.toLowerCase() == country.toLowerCase()) {
+          console.log(item);
           this.data.total = item.cases.total;
           this.data.active = item.cases.active;
           this.data.recovered = item.cases.recovered;
@@ -206,7 +207,8 @@ export class DashboardComponent implements OnInit {
   }
 
   updateCaseTrendsChart() {
-    let topCountries = this.data.stats && this.data.stats.length ? this.data.stats.splice(0, 5) : [];
+    let topCountries = [ ... this.data.stats ];
+    topCountries = topCountries.splice(0,5);
     let cases = {
       active: [],
       recovered: [],
