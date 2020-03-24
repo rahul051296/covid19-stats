@@ -1,0 +1,82 @@
+.covid-card {
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+.covid-card-blue {
+    background: rgba(0, 123, 255, .0627451);
+    color: rgba(0, 123, 255, .8);
+}
+
+.covid-card-red {
+    background: rgba(255, 7, 58, .12549);
+    color: rgba(255, 7, 58, .8);
+}
+
+.covid-card-green {
+    background: rgba(40, 167, 69, .12549);
+    color: rgba(40, 167, 69, 0.8);
+}
+
+.covid-card-grey {
+    background: rgba(108, 117, 125, .0627451);
+    color: rgba(108, 117, 125, .8)
+}
+
+.covid-card-white {
+    background: rgb(255, 255, 255);
+    color: rgba(108, 117, 125, .8)
+}
+
+.chart-container {
+    width: 100%;
+    height: 350px;
+    display: block;
+}
+
+.chart-loading-text {
+    height: 350px;
+}
+
+.card-container {
+    margin-top: 8px;
+    padding: 0 4px;
+}
+
+.count {
+    font-size: 3rem;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    min-height: 80px;
+}
+
+.card-desc {
+    min-height: 24px;
+}
+
+.dashbord-container {
+    /* padding: 20px 0; */
+}
+
+.covid-card-title {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.p-fix {
+    padding: 0 8px;
+}
+
+@media only screen and (max-width:768px) {
+    .count {
+        font-size: 2rem;
+    }
+    .covid-card-title {
+        font-size: 0.9em;
+    }
+}

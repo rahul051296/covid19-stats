@@ -24,6 +24,8 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "chartjs-plugin-piechart-outlabels": "^0.1.4",
+    "highcharts": "^8.0.4",
+    "highcharts-angular": "^2.4.0",
     "ng2-charts": "^2.3.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
