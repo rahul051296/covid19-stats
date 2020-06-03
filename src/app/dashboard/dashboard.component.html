@@ -20,9 +20,9 @@
                     <div class="covid-card-body">
                         <p class="loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
                         <div *ngIf="flags.isStatsLoaded">
-                            <h2 class="count">{{data?.total}}</h2>
+                            <h2 class="count">{{data?.total | formatNumber}}</h2>
                             <div class="text-center card-desc">
-                                <small>{{data?.new}} new cases</small>
+                                <small>{{data?.new | formatNumber}} new cases</small>
                             </div>
                         </div>
 
@@ -35,9 +35,9 @@
                     <div class="covid-card-body">
                         <p class="loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
                         <div *ngIf="flags.isStatsLoaded">
-                            <h2 class="count">{{data?.active}}</h2>
+                            <h2 class="count">{{data?.active | formatNumber}}</h2>
                             <div class="text-center card-desc">
-                                <small>{{data?.critical}} critical cases</small>
+                                <small>{{data?.critical | formatNumber}} critical cases</small>
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
                         <p class="loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
 
                         <div *ngIf="flags.isStatsLoaded">
-                            <h2 class="count">{{data?.recovered}}</h2>
+                            <h2 class="count">{{data?.recovered | formatNumber}}</h2>
                             <div class="text-center card-desc">
                                 <small></small>
                             </div>
@@ -67,9 +67,9 @@
                         <p class="loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
 
                         <div *ngIf="flags.isStatsLoaded">
-                            <h2 class="count">{{data?.deaths}}</h2>
+                            <h2 class="count">{{data?.deaths | formatNumber}}</h2>
                             <div class="text-center card-desc">
-                                <small>{{data?.newDeaths}} recent deaths</small>
+                                <small>{{data?.newDeaths | formatNumber}} recent deaths</small>
                             </div>
                         </div>
 
@@ -82,7 +82,6 @@
                     <p class="loading-text chart-loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
                     <div *ngIf="flags.isStatsLoaded">
                         <highcharts-chart class="chart-container" [Highcharts]="Highcharts" [options]="pieChartOptions" [(update)]="flags.updateFlag"></highcharts-chart>
-
                     </div>
                 </div>
             </div>
@@ -97,15 +96,7 @@
                 </div>
             </div>
 
-            <!-- <div class="col-12 col-sm-4 col-lg-3 p-fix">
-            <div class="covid-card covid-card-white">
-                <h6 class="covid-card-title">TOP 5 LOCATION TRENDS</h6>
-                <p class="loading-text chart-loading-text" *ngIf="!flags.isStatsLoaded">Loading...</p>
-                <div *ngIf="flags.isStatsLoaded">
-                    <highcharts-chart class="chart-container" [Highcharts]="Highcharts" [options]="pieChartOptions" [(update)]="flags.updateFlag"></highcharts-chart>
-                </div>
-            </div>
-        </div> -->
+
         </div>
     </section>
 

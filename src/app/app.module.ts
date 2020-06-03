@@ -7,11 +7,13 @@ import { ApiService } from './api.service';
 import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { FormatNumberPipe } from './pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    FormatNumberPipe
   ],
   imports: [
     BrowserModule,

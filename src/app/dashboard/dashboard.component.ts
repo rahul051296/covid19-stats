@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   selectedCountry: string;
   pieChartOptions: any;
   columnChartOptions: any;
+  stackedColumnChartOptions: any;
   data: any = {
     countryList: [],
     stats: [],
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
     this.selectedCountry = "All";
     this.initializePieChart();
     this.initializeColumnChart();
+    this.initializeStackedColumnChart();
     this.getCovidCountryList();
     this.getCovidStats();
   }
@@ -146,6 +148,73 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  initializeStackedColumnChart() {
+    this.stackedColumnChartOptions = {
+
+      chart: {
+        type: 'column',
+        options3d: {
+          enabled: true,
+          alpha: 15,
+          beta: 15,
+          viewDistance: 25,
+          depth: 40
+        }
+      },
+
+      title: {
+        text: ''
+      },
+
+      xAxis: {
+        categories: ['Active Cases', 'Deaths']
+      },
+
+      yAxis: {
+        allowDecimals: false,
+        min: 0,
+        title: {
+          text: 'Number of cases'
+        }
+      },
+
+      tooltip: {
+        formatter: function () {
+          return '<b>' + this.x + '</b><br/>' +
+            this.series.name + ': ' + this.y + '<br/>' +
+            'Total: ' + this.point.stackTotal;
+        }
+      },
+
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+          },
+          depth: 40
+        }
+      },
+
+      series: [{
+        name: 'Critical Cases',
+        data: [3, 0],
+        color: 'rgba(255, 128, 7, 1)'
+      }, {
+        name: 'Stable Cases',
+        data: [5, 0],
+        color: 'rgba(255, 195, 0, 1)'
+      }, {
+        name: 'Recent Deaths',
+        data: [0, 2],
+        color: 'rgba(205, 7, 58, 1)'
+      }, {
+        name: 'Older Deaths',
+        data: [0, 3],
+        color: 'rgba(255, 7, 58, 1)'
+      }]
+    }
+  }
+
   getCovidCountryList() {
     this.flags.isCountryListLoaded = false;
     this.apiService.getCovid19CountryList().subscribe((response: any) => {
@@ -207,8 +276,10 @@ export class DashboardComponent implements OnInit {
   }
 
   updateCaseTrendsChart() {
-    let topCountries = [ ... this.data.stats ];
-    topCountries = topCountries.splice(0,5);
+    let topCountries = [... this.data.stats];
+    this.sortByCases(topCountries);
+    topCountries = topCountries.splice(0, 5);
+    console.log(topCountries);
     let cases = {
       active: [],
       recovered: [],
@@ -236,6 +307,22 @@ export class DashboardComponent implements OnInit {
 
     },]
 
+  }
+
+  sortByCases(countryList) {
+    countryList.sort(this.sortByInnerProperty("cases", "total"));
+    countryList.splice(0,1);
+  }
+
+  sortByInnerProperty(parentProperty, property) {
+    return function (a, b) {
+      if (a[parentProperty][property] < b[parentProperty][property])
+        return 1;
+      else if (a[parentProperty][property] > b[parentProperty][property])
+        return -1;
+
+      return 0;
+    }
   }
 
   onChangeCountry() {
