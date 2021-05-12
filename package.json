@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "bootstrap": "^4.4.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "chartjs-plugin-piechart-outlabels": "^0.1.4",
     "highcharts": "^8.0.4",
